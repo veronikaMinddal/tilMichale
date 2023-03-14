@@ -29,7 +29,27 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        String navn = request.getParameter("navn");
+        String kode = request.getParameter("kode");
+        Person person = Facade.getPerson(navn);
+
+        if(person == null)
+        {
+            request.setAttribute("msg","brugeren findes ikke");
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+        if(!person.getKode().equals(kode))
+        {
+            request.setAttribute("msg","koden er forkert");
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+        HttpSession session = request.getSession();
+
+        session.setAttribute("person",person);
+
+        request.getRequestDispatcher("WEB-INF/brugerside.jsp").forward(request,response);
 
     }
 }

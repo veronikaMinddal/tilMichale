@@ -23,6 +23,13 @@ public class Person
         this.stringArrayList = new ArrayList<>(Arrays.asList(strings));
     }
 
+    public Person(String navn, String kode, ArrayList<String> strings)
+    {
+        this.navn = navn;
+        this.kode = kode;
+        this.stringArrayList = new ArrayList<>(strings);
+    }
+
 
     public List<String> getStringArrayList()
     {
